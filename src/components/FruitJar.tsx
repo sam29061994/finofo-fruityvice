@@ -1,4 +1,4 @@
-const Jar = () => {
+const FruitJar = () => {
   return (
     <div>
       <h1>Jar</h1>
@@ -6,4 +6,4 @@ const Jar = () => {
   );
 };
 
-export default Jar;
+export default FruitJar;

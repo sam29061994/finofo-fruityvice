@@ -1,16 +1,25 @@
-import FruitList from "@/components/fruitList";
-import Jar from "@/components/jar";
-import { Skeleton } from "@/components/ui/skeleton";
+import FruitList, { Fruit } from "@/components/FruitList";
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/hooks/use-toast";
 import { useFruits } from "@/services/fruityVice";
+import SkeletonLoader from "@/components/Skeleton";
+import CustomSelect from "@/components/CustomSelect";
+import { useState } from "react";
+import { groupBy } from "@/utils";
+import GroupByFruitList from "@/components/GroupByFruitList";
+import FruitTable from "@/components/FruitTable";
+
+export type ViewValue = "list" | "table";
+export type GroupByValue = "family" | "order" | "genus" | "none";
 
 const Home = () => {
   const { isLoading, data, error } = useFruits();
+  const [selectedValue, setSelectedValue] = useState<ViewValue>("list");
+  const [groupByValue, setGroupByValue] = useState<GroupByValue>("none");
   const { toast } = useToast();
-  console.log(data);
+  const [fruitJar, setFruitJar] = useState<Fruit[]>([]);
 
-  if (isLoading) return <Skeleton className="h-12 w-12 rounded-full" />;
+  const groupedFruits = groupBy(data, groupByValue);
 
   if (error) {
     toast({
@@ -21,20 +30,72 @@ const Home = () => {
     });
   }
 
+  const addFruitTOJar = (id: number) => {
+    const fruit = data.find((fruit) => fruit.id === id);
+    if (fruit) {
+      setFruitJar((prev) => [...prev, fruit]);
+      toast({
+        variant: "default",
+        title: "Added to Jar",
+        description: `${fruit.name} has been added to your jar.`,
+      });
+    }
+  };
+
   return (
-    <div className="container mx-auto p-4 max-w-7xl bg-background">
+    <div className="container mx-auto p-4 max-w-screen-xl bg-background">
       <div className="flex space-x-8">
-        <div className="w-1/2">
-          <h2 className="text-xl font-semibold mb-4 text-center">
+        <div className="w-2/3 mx-auto p-4 ">
+          <h2 className="text-xl font-semibold text-center mr-8 mb-8">
             Fruits List
           </h2>
-          <FruitList fruits={data} />
+          <div className="flex items-center mb-8">
+            <label className="block text-sm font-medium mr-4">View</label>
+            <CustomSelect
+              value={selectedValue}
+              onValueChange={(value) => setSelectedValue(value)}
+              placeholder="Select View"
+              label="View"
+              options={[
+                { value: "list", label: "List" },
+                { value: "table", label: "Table" },
+              ]}
+            />
+            <label className="block text-sm font-medium mx-4">Group By</label>
+            <CustomSelect
+              value={groupByValue}
+              onValueChange={(value) => setGroupByValue(value)}
+              disabled={selectedValue === "table"}
+              placeholder="Group By"
+              label="Group By"
+              options={[
+                { value: "none", label: "None" },
+                { value: "family", label: "Family" },
+                { value: "order", label: "Order" },
+                { value: "genus", label: "Genus" },
+              ]}
+            />
+          </div>
+          {isLoading ? (
+            <SkeletonLoader />
+          ) : selectedValue === "list" ? (
+            groupByValue === "none" ? (
+              <FruitList fruits={data} onAdd={addFruitTOJar} />
+            ) : (
+              <GroupByFruitList
+                groupedFruits={groupedFruits}
+                onAdd={addFruitTOJar}
+              />
+            )
+          ) : (
+            <FruitTable data={data} onAdd={addFruitTOJar} />
+          )}
         </div>
-        <div className="w-1/2">
+        <div className="w-1/3 p-4">
           <h2 className="text-xl font-semibold mb-4 text-center">
             Your Fruit Jar
           </h2>
-          <Jar />
+          <FruitList fruits={fruitJar} />
         </div>
       </div>
     </div>
