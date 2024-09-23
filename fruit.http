@@ -1,0 +1,9 @@
+GET https://www.fruityvice.com/api/fruit/carbohydrates?min=0&max=1000
+
+#####
+
+GET https://www.fruityvice.com/api/fruit/all
+
+
+#####
+GET https://www.fruityvice.com/api/fruit/family/Musaceae
