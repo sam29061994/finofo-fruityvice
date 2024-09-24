@@ -4,9 +4,9 @@ import { CardContent } from "@/components/ui/card";
 import { ChartContainer } from "@/components/ui/chart";
 import { Fruit } from "./types";
 
-type FruitPieChartProps = {
+interface FruitPieChartProps {
   data: Fruit[];
-};
+}
 
 const generateColor = (index: number) => {
   const hue = (index * 137.5) % 360;
