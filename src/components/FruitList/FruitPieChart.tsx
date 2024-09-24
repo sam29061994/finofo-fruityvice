@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { PieChart, Pie, Tooltip } from "recharts";
+import { PieChart, Pie } from "recharts";
 import { CardContent } from "@/components/ui/card";
 import { ChartContainer } from "@/components/ui/chart";
 import { Fruit } from "./types";
@@ -15,15 +15,25 @@ const generateColor = (index: number) => {
 
 const FruitPieChart = ({ data }: FruitPieChartProps) => {
   const chartData = useMemo(() => {
-    return data.map((fruit, index) => ({
-      name: fruit.name,
-      calories: fruit.nutritions.calories,
-      fill: generateColor(index),
-    }));
+    const fruitMap = new Map();
+
+    data.forEach((fruit, index) => {
+      if (fruitMap.has(fruit.name)) {
+        fruitMap.get(fruit.name).calories += fruit.nutritions.calories;
+      } else {
+        fruitMap.set(fruit.name, {
+          name: fruit.name,
+          calories: fruit.nutritions.calories,
+          fill: generateColor(index),
+        });
+      }
+    });
+
+    return Array.from(fruitMap.values());
   }, [data]);
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full ">
       <CardContent className="flex-1 pb-0 ">
         <ChartContainer
           className="mx-auto aspect-square min-h-[400px]"
@@ -38,9 +48,8 @@ const FruitPieChart = ({ data }: FruitPieChartProps) => {
               outerRadius={80}
               strokeWidth={5}
               labelLine={false}
-              label={({ name }) => `${name}`}
+              label={({ name, calories }) => `${name} | ${calories} cal`}
             />
-            <Tooltip />
           </PieChart>
         </ChartContainer>
       </CardContent>
