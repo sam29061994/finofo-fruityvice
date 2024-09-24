@@ -4,7 +4,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useFruits } from "@/services/fruityVice";
 import SkeletonLoader from "@/components/Skeleton";
 import CustomSelect from "@/components/CustomSelect";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { groupBy } from "@/utils";
 import GroupByFruitList from "@/components/GroupByFruitList";
 import FruitTable from "@/components/FruitTable";
@@ -41,6 +41,13 @@ const Home = () => {
       });
     }
   };
+
+  const totalCalories = useMemo(() => {
+    return fruitJar.reduce(
+      (total, fruit) => total + fruit.nutritions.calories,
+      0
+    );
+  }, [fruitJar]);
 
   return (
     <div className="container mx-auto p-4 max-w-screen-xl bg-background">
@@ -96,6 +103,11 @@ const Home = () => {
             Your Fruit Jar
           </h2>
           <FruitList fruits={fruitJar} />
+          <div className="text-center mt-4">
+            <p className="text-lg font-semibold">
+              Total Calories: {totalCalories}
+            </p>
+          </div>
         </div>
       </div>
     </div>
