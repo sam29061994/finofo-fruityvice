@@ -53,8 +53,8 @@ const Home = () => {
 
   return (
     <div className="container mx-auto p-4 max-w-max bg-background">
-      <div className="flex space-x-8">
-        <div className="w-[70%] p-4 ">
+      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
+        <div className="w-full md:w-[70%] p-4 ">
           <h2 className="text-xl font-semibold text-center mr-8 mb-8">
             Fruits List
           </h2>
@@ -100,7 +100,7 @@ const Home = () => {
             <FruitTable data={data} onAdd={addFruitTOJar} />
           )}
         </div>
-        <div className="w-[30%] p-4">
+        <div className="w-full md:w-[30%] p-4">
           <h2 className="text-xl font-semibold mb-4 text-center">
             Your Fruit Jar
           </h2>
