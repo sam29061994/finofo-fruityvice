@@ -26,10 +26,10 @@ const FruitPieChart = ({ data }: FruitPieChartProps) => {
     <div className="flex flex-col w-full">
       <CardContent className="flex-1 pb-0 ">
         <ChartContainer
-          className="mx-auto aspect-square min-h-[450px]"
+          className="mx-auto aspect-square min-h-[400px]"
           config={{}}
         >
-          <PieChart width={250} height={250}>
+          <PieChart width={300} height={300}>
             <Pie
               data={chartData}
               dataKey="calories"

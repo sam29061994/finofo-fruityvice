@@ -1,4 +1,3 @@
-
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/hooks/use-toast";
 import { useFruits } from "@/services/fruityVice";
@@ -55,7 +54,7 @@ const Home = () => {
   return (
     <div className="container mx-auto p-4 max-w-max bg-background">
       <div className="flex space-x-8">
-        <div className="w-3/5 p-4 ">
+        <div className="w-[70%] p-4 ">
           <h2 className="text-xl font-semibold text-center mr-8 mb-8">
             Fruits List
           </h2>
@@ -101,14 +100,14 @@ const Home = () => {
             <FruitTable data={data} onAdd={addFruitTOJar} />
           )}
         </div>
-        <div className="w-2/5 p-4">
+        <div className="w-[30%] p-4">
           <h2 className="text-xl font-semibold mb-4 text-center">
             Your Fruit Jar
           </h2>
           <FruitPieChart data={fruitJar} />
           <FruitList fruits={fruitJar} />
           <div className="text-center mt-4">
-            <p className="text-lg font-semibold">
+            <p className="text-lg font-semibold text-left ">
               Total Calories: {totalCalories}
             </p>
           </div>

@@ -36,7 +36,13 @@ const FruitTable = ({ data, onAdd }: TableViewProps) => {
             <TableCell>{fruit.genus}</TableCell>
             <TableCell>{fruit.nutritions.calories}</TableCell>
             <TableCell>
-              <Button onClick={() => onAdd(fruit.id)}>Add</Button>
+              <Button
+                onClick={() => onAdd(fruit.id)}
+                className="px-4 py-2 rounded"
+                variant="outline"
+              >
+                Add to Jar
+              </Button>
             </TableCell>
           </TableRow>
         ))}
