@@ -52,7 +52,7 @@ const Home = () => {
   }, [fruitJar]);
 
   return (
-    <div className="container mx-auto p-4 max-w-max bg-background">
+    <div className="container mx-auto p-4 max-w-max bg-background overflow-x-hidden">
       <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-8">
         <div className="w-full md:w-[70%] p-4 ">
           <h2 className="text-xl font-semibold text-center mr-8 mb-8">
