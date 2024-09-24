@@ -1,19 +1,9 @@
-import { Button } from "./ui/button";
-
-export interface Fruit {
-  id: number;
-  name: string;
-  family: string;
-  order: string;
-  genus: string;
-  nutritions: {
-    calories: number;
-  };
-}
+import { Button } from "../ui/button";
+import { Fruit, OnAdd } from "./types";
 
 interface FruitListProps {
   fruits: Fruit[];
-  onAdd?: (id: number) => void;
+  onAdd?: OnAdd;
 }
 
 const FruitList = ({ fruits, onAdd }: FruitListProps) => {

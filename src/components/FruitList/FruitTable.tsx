@@ -1,5 +1,4 @@
-import { Fruit } from "./FruitList";
-import { Button } from "./ui/button"; // Shadcn button component
+import { Button } from "../ui/button";
 import {
   Table,
   TableBody,
@@ -7,13 +6,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "./ui/table"; // Shadcn table components
-
-// Define the type for the fruit data
+} from "../ui/table";
+import { Fruit, OnAdd } from "./types";
 
 type TableViewProps = {
-  data: Fruit[]; // Array of fruits to display
-  onAdd: (id: number) => void; // Callback when the add button is clicked
+  data: Fruit[];
+  onAdd: OnAdd;
 };
 
 const FruitTable = ({ data, onAdd }: TableViewProps) => {

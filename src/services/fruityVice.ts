@@ -1,4 +1,4 @@
-import { Fruit } from "@/components/FruitList";
+import { Fruit } from "@/components/FruitList/types";
 import useSWR from "swr";
 
 const API_URL = "api/fruits";

@@ -4,12 +4,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Fruit } from "./FruitList";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
+import { Fruit, OnAdd } from "./types";
 
 interface GroupByFruitListProps {
   groupedFruits: Record<string, Fruit[]>;
-  onAdd: (id: number) => void;
+  onAdd: OnAdd;
 }
 
 const GroupByFruitList = ({ groupedFruits, onAdd }: GroupByFruitListProps) => {

@@ -1,4 +1,4 @@
-import FruitList, { Fruit } from "@/components/FruitList";
+
 import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/hooks/use-toast";
 import { useFruits } from "@/services/fruityVice";
@@ -6,8 +6,11 @@ import SkeletonLoader from "@/components/Skeleton";
 import CustomSelect from "@/components/CustomSelect";
 import { useMemo, useState } from "react";
 import { groupBy } from "@/utils";
-import GroupByFruitList from "@/components/GroupByFruitList";
-import FruitTable from "@/components/FruitTable";
+import { Fruit } from "@/components/FruitList/types";
+import FruitList from "@/components/FruitList/FruitList";
+import GroupByFruitList from "@/components/FruitList/GroupByFruitList";
+import FruitTable from "@/components/FruitList/FruitTable";
+import FruitPieChart from "@/components/FruitList/FruitPieChart";
 
 export type ViewValue = "list" | "table";
 export type GroupByValue = "family" | "order" | "genus" | "none";
@@ -50,9 +53,9 @@ const Home = () => {
   }, [fruitJar]);
 
   return (
-    <div className="container mx-auto p-4 max-w-screen-xl bg-background">
+    <div className="container mx-auto p-4 max-w-max bg-background">
       <div className="flex space-x-8">
-        <div className="w-2/3 mx-auto p-4 ">
+        <div className="w-3/5 p-4 ">
           <h2 className="text-xl font-semibold text-center mr-8 mb-8">
             Fruits List
           </h2>
@@ -98,10 +101,11 @@ const Home = () => {
             <FruitTable data={data} onAdd={addFruitTOJar} />
           )}
         </div>
-        <div className="w-1/3 p-4">
+        <div className="w-2/5 p-4">
           <h2 className="text-xl font-semibold mb-4 text-center">
             Your Fruit Jar
           </h2>
+          <FruitPieChart data={fruitJar} />
           <FruitList fruits={fruitJar} />
           <div className="text-center mt-4">
             <p className="text-lg font-semibold">
